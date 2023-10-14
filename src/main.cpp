@@ -1,18 +1,30 @@
 #include <Arduino.h>
-
-// put function declarations here:
-int myFunction(int, int);
-
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+void gui(uint8_t data)
+{
+  digitalWrite(0, LOW);
+  //     data, clock ,trai sang phai, bit can truyen
+  shiftOut(11, 13, LSBFIRST, data);
+  digitalWrite(0, HIGH);
 }
-
-void loop() {
-  // put your main code here, to run repeatedly:
+void setup()
+{
+  pinMode(13, OUTPUT); // clock
+  pinMode(11, OUTPUT); // data serial (MOSI) (truyen tin hieu di)
+  pinMode(0, OUTPUT);  // latch (chot tin hieu) (ss)(slave selector)
 }
-
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+void loop()
+{
+  // digitalWrite(0, LOW);
+  // //     data, clock ,trai sang phai, bit can truyen
+  // shiftOut(11, 13, LSBFIRST, 0b11111111);
+  // digitalWrite(0, HIGH);
+  // delay(300);
+  // digitalWrite(0, LOW);
+  // //     data, clock ,trai sang phai, bit can truyen
+  // shiftOut(11, 13, LSBFIRST, 0b00000000);
+  // digitalWrite(0, HIGH);
+  gui(0b11111111);
+  delay(300);
+  gui(0b00000000);
+  delay(300);
 }
